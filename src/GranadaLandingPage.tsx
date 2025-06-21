@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Plus, DollarSign, GraduationCap, Briefcase, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const GranadaLandingPage: React.FC = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [currentWord, setCurrentWord] = useState('Funding');
   
   // Words to cycle through
   const words = ['Funding', 'Scholarships', 'Grants', 'Opportunities'];
+  
+  // Handle search submission
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      // If empty search, use the current animated word
+      navigate(`/search?q=${encodeURIComponent(currentWord)}`);
+    }
+  };
+  
+  // Handle enter key press in search input
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -142,8 +160,8 @@ const GranadaLandingPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 bg-white shadow-md rounded-full text-blue-600 font-medium flex items-center space-x-2"
-              onClick={() => setSearchQuery("donors ")}
+              className="px-4 py-2 bg-white shadow-md rounded-full text-blue-600 font-medium flex items-center space-x-2 cursor-pointer"
+              onClick={() => navigate('/search?q=donors')}
             >
               <DollarSign className="w-4 h-4" />
               <span>Donors</span>
@@ -152,8 +170,8 @@ const GranadaLandingPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 bg-white shadow-md rounded-full text-purple-600 font-medium flex items-center space-x-2"
-              onClick={() => setSearchQuery("scholarships ")}
+              className="px-4 py-2 bg-white shadow-md rounded-full text-purple-600 font-medium flex items-center space-x-2 cursor-pointer"
+              onClick={() => navigate('/search?q=scholarships')}
             >
               <GraduationCap className="w-4 h-4" />
               <span>Scholarships</span>
@@ -162,8 +180,8 @@ const GranadaLandingPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 bg-white shadow-md rounded-full text-green-600 font-medium flex items-center space-x-2"
-              onClick={() => setSearchQuery("business funding ")}
+              className="px-4 py-2 bg-white shadow-md rounded-full text-green-600 font-medium flex items-center space-x-2 cursor-pointer"
+              onClick={() => navigate('/search?q=business funding')}
             >
               <Briefcase className="w-4 h-4" />
               <span>Business Funding</span>
@@ -172,8 +190,8 @@ const GranadaLandingPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 bg-white shadow-md rounded-full text-orange-600 font-medium flex items-center space-x-2"
-              onClick={() => setSearchQuery("donation locations ")}
+              className="px-4 py-2 bg-white shadow-md rounded-full text-orange-600 font-medium flex items-center space-x-2 cursor-pointer"
+              onClick={() => navigate('/search?q=donation locations')}
             >
               <MapPin className="w-4 h-4" />
               <span>Donation Locations</span>
@@ -193,14 +211,16 @@ const GranadaLandingPage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress}
                 placeholder="Search for donors, scholarships, funding, or jobs..."
                 className="w-full px-6 py-4 pr-12 text-lg text-gray-800 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-lg"
               />
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
                 <motion.button 
+                  onClick={handleSearch}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-2 bg-purple-600 rounded-full text-white shadow-md"
+                  className="p-2 bg-purple-600 rounded-full text-white shadow-md cursor-pointer"
                 >
                   <Search className="w-5 h-5" />
                 </motion.button>
