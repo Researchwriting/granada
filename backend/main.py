@@ -13,8 +13,13 @@ from core.auth import get_current_user
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        print("✅ Database tables created successfully")
+    except Exception as e:
+        print(f"⚠️  Database initialization failed: {e}")
+        print("🔄 Continuing without database...")
     yield
     # Shutdown
     pass

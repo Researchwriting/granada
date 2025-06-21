@@ -21,6 +21,7 @@ import NGOPipeline from './components/NGOPipeline';
 import AdminDashboard from './components/AdminDashboard';
 import MobileNavigation from './components/shared/MobileNavigation';
 import LandingPage from './LandingPage';
+import MarketingLandingPage from './MarketingLandingPage';
 import StudentDashboard from './components/StudentDashboard';
 import HumanHelpPage from './pages/HumanHelpPage';
 import CreditsPage from './pages/CreditsPage';
@@ -36,15 +37,7 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Redirect to landing page if not authenticated
-  useEffect(() => {
-    if (!isAuthenticated && !location.pathname.includes('/landing') && 
-        !location.pathname.includes('/login') && 
-        !location.pathname.includes('/register') && 
-        !location.pathname.includes('/forgot-password')) {
-      navigate('/landing');
-    }
-  }, [isAuthenticated, navigate, location.pathname]);
+  // No automatic redirects - let the routing handle it naturally
 
   // If not authenticated, don't render the app
   if (!isAuthenticated) {
@@ -106,7 +99,7 @@ function App() {
 
   // For landing page and auth pages, render without the app layout
   if (isLandingPage) {
-    return <LandingPage />;
+    return <MarketingLandingPage />;
   }
 
   if (isAuthPage) {
@@ -117,6 +110,11 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
     );
+  }
+
+  // For unauthenticated users on root path, show marketing landing page
+  if (location.pathname === '/') {
+    return <MarketingLandingPage />;
   }
 
   // For all other routes, render the app with layout
