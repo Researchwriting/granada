@@ -8,6 +8,8 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   server: {
+    host: '0.0.0.0',
+    port: 12000,
     proxy: {
       '/dodo-api': {
         target: 'https://api.dodopayments.com/v1',
