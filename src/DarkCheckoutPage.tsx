@@ -47,9 +47,17 @@ const DarkCheckoutPage: React.FC = () => {
       setIsProcessing(false);
       setIsComplete(true);
       
-      // Redirect to dashboard after successful signup/login
+      // Redirect to appropriate dashboard based on plan
       setTimeout(() => {
-        navigate('/dashboard');
+        if (selectedPlan === 'business' || selectedPlan === 'enterprise') {
+          navigate('/dashboard/business');
+        } else if (selectedPlan === 'student') {
+          navigate('/dashboard/student');
+        } else if (selectedPlan === 'jobseeker') {
+          navigate('/dashboard/jobseeker');
+        } else {
+          navigate('/dashboard');
+        }
       }, 1500);
     }, 2000);
   };
