@@ -180,6 +180,11 @@ const SearchResultsPage: React.FC = () => {
     setTimeout(() => {
       setIsGeneratingDocument(false);
       setDocumentReady(true);
+      
+      // Navigate to checkout page after a short delay
+      setTimeout(() => {
+        navigate(`/checkout?plan=${selectedPlan}`);
+      }, 1000);
     }, 2000);
   };
   
