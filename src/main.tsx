@@ -9,6 +9,10 @@ import GranadaLandingPage from './GranadaLandingPage.tsx';
 import SearchLoadingPage from './SearchLoadingPage.tsx';
 import SearchResultsPage from './SearchResultsPage.tsx';
 import CheckoutPage from './CheckoutPage.tsx';
+import DarkGranadaLandingPage from './DarkGranadaLandingPage.tsx';
+import DarkSearchLoadingPage from './DarkSearchLoadingPage.tsx';
+import DarkSearchResultsPage from './DarkSearchResultsPage.tsx';
+import DarkCheckoutPage from './DarkCheckoutPage.tsx';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import './index.css';
@@ -22,10 +26,10 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/marketing" element={<MarketingLandingPage />} />
             <Route path="/kiin" element={<KiinLandingPage />} />
-            <Route path="/" element={<GranadaLandingPage />} />
-            <Route path="/search" element={<SearchLoadingPage />} />
-            <Route path="/results" element={<SearchResultsPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/" element={<DarkGranadaLandingPage />} />
+            <Route path="/search" element={<DarkSearchLoadingPage />} />
+            <Route path="/results" element={<DarkSearchResultsPage />} />
+            <Route path="/checkout" element={<DarkCheckoutPage />} />
             <Route path="/*" element={<App />} />
           </Routes>
         </AuthProvider>
